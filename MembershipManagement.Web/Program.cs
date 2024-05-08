@@ -1,7 +1,38 @@
+using MembershipManagement.Application.Common.Interfaces;
+using MembershipManagement.Application.Services.Implementation;
+using MembershipManagement.Application.Services.Interface;
+using MembershipManagement.Domain.Entities;
+using MembershipManagement.Infrastructure.Data;
+using MembershipManagement.Infrastructure.Repository;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationDbContext>(option =>
+option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.AccessDeniedPath = "/Account/AccessDenied";
+    option.LoginPath = "/Account/Login";
+});
+
+builder.Services.Configure<IdentityOptions>(option =>
+{
+    option.Password.RequiredLength = 6;
+});
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+builder.Services.AddScoped<IBranchService, BranchService>();
+builder.Services.AddScoped<ISealingService, SealingService>(); 
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 var app = builder.Build();
 

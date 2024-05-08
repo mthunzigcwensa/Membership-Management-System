@@ -1,0 +1,76 @@
+﻿@model Branch
+<div>
+    <a asp-action="AddBranchAdmin"
+       asp-route-BranchID="@Model.BranchID"
+       class="btn btn-success bg-gradient border-0 form-control">
+        Add admin
+    </a>
+</div>
+<div>
+    <a asp-action="AddRegularUser"
+       asp-route-BranchID="@Model.BranchID"
+       class="btn btn-warning bg-gradient border-0 form-control">
+        Add member
+    </a>
+</div>
+<div>
+    <a asp-action="UpdateBranch"
+       asp-route-BranchID="@Model.BranchID"
+       class="btn btn-info bg-gradient border-0 form-control">
+        Update Branch
+    </a>
+</div>
+<div>
+    <a asp-action="DeleteBranch"
+       asp-route-BranchID="@Model.BranchID"
+       class="btn btn-danger bg-gradient border-0 form-control">
+        Remove Branch
+    </a>
+</div>
+<div>
+    <a asp-action="BranchMembers"
+       asp-route-BranchID="@Model.BranchID"
+       class="btn btn-primary bg-gradient border-0 form-control">
+        branch all users
+    </a>
+</div>
+<div>
+    <a asp-action="BranchManagers"
+       asp-route-BranchID="@Model.BranchID"
+       class="btn btn-primary bg-gradient border-0 form-control">
+        see all branch admins
+    </a>
+</div>
+<div>
+    <a asp-action="BranchSealings"
+       asp-route-BranchID="@Model.BranchID"
+       class="btn btn-primary bg-gradient border-0 form-control">
+        see all branch Sealing
+    </a>
+</div>
+
+<div class="col-md-12 col-xl-8 mt-2">
+    <div class="card" style="background-color: #1a222b;">
+        <div class="card-body">
+            <div>
+                <p class="text-muted mb-0">New Members And Bookings In Past 30 Days</p>
+            </div>
+            <div id="newMembersAndBookingsLineChart" data-colors='["--bs-warning","--bs-primary"]'>
+            </div>
+            <div class="justify-content-center text-center chart-spinner" style="display:none">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/js/dashboard/radailChart.js"></script>
+    <script src="~/js/dashboard/getTotalBookingsRadial.js"></script>
+    <script src="~/js/dashboard/getTotalRevenueRadial.js"></script>
+    <script src="~/js/dashboard/getTotalUserRadial.js"></script>
+    <script src="~/js/dashboard/getCustomerBookingPieChart.js"></script>
+    <script src="~/js/dashboard/getCustomerAndBookingLineChart.js"></script>
+}

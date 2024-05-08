@@ -1,0 +1,42 @@
+﻿@model List<Sealing>
+
+<h2>Branch Sealings</h2>
+
+@if (Model.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sealing Type</th>
+                <th>Sealing Date</th>               
+                <th> User Id</th>
+                <th>Application Date</th>
+                <th>Action</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sealing in Model)
+            {
+                <tr>
+                    <td>@sealing.SealingType</td>
+                    <td>@sealing.SealingDate</td>
+                    <td>@sealing.Id</td>
+                    <td>@sealing.AppliedByDate</td>
+                    <td>@sealing.Status</td>
+                    <td>
+                        @if(@sealing.Status == "Submitted"){
+                            <form asp-action="UpdateStatus" asp-route-SealingId="@sealing.SealingId" method="post">
+                            <button type="submit" class="btn btn-danger">Aprove</button>
+                        </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No branch Sealings found.</p>
+}

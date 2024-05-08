@@ -1,0 +1,60 @@
+﻿@model MembershipManagement.Domain.ViewModels.RegisterVM
+
+<h2 class="mb-4">Add Branch Admin</h2>
+
+<form asp-action="AddRegularUser" method="post" class="container bg-white p-5 rounded shadow">
+
+    <!-- Branch Selection -->
+    <div class="form-group mb-3">
+        <label asp-for="BranchId" class="form-label">Branch</label>
+        <select asp-for="BranchId" asp-items="@Model.BranchList" disabled class="form-select">
+            <option>Please select</option>
+        </select>
+        <input type="hidden" asp-for="BranchId" />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control" placeholder="Enter email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+
+    <!-- Role -->
+    <div class="form-group mb-3">
+        <label asp-for="Role" class="form-label">Admin Role</label>
+        <input asp-for="Role" disabled class="form-control">
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+
+    <!-- Name -->
+    <div class="form-group mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" type="text" class="form-control" placeholder="Full name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group mb-3">
+        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+        <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Enter phone number">
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-check-circle"></i> Create
+            </button>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+            <a asp-action="Details"
+               asp-route-BranchID="@Model.BranchId"
+               class="btn btn-secondary w-100">
+                <i class="bi bi-arrow-left-circle"></i> Back
+            </a>
+        </div>
+    </div>
+</form>
