@@ -5,6 +5,8 @@ using MembershipManagement.Domain.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MembershipManagement.Web.Controllers
 {
@@ -18,15 +20,12 @@ namespace MembershipManagement.Web.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public BranchController(
-
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            SignInManager<ApplicationUser> signInManager, 
+            SignInManager<ApplicationUser> signInManager,
             IBranchService branchService,
             ISealingService sealingService,
-            IDashboardService dashboardService
-
-            )
+            IDashboardService dashboardService)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -35,7 +34,6 @@ namespace MembershipManagement.Web.Controllers
             _sealingService = sealingService;
             _dashboardService = dashboardService;
         }
-
 
         public IActionResult Index()
         {
@@ -52,12 +50,11 @@ namespace MembershipManagement.Web.Controllers
         public IActionResult Create(Branch obj)
         {
             if (ModelState.IsValid)
-            { 
+            {
                 _branchService.CreateBranch(obj);
                 return RedirectToAction(nameof(Index));
             }
             return View(obj);
-
         }
 
         public IActionResult UpdateBranch(int BranchID)
@@ -75,7 +72,6 @@ namespace MembershipManagement.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(obj);
-
         }
 
         public IActionResult DeleteBranch(int BranchID)
@@ -93,10 +89,9 @@ namespace MembershipManagement.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(obj);
-
         }
 
-        public IActionResult Details(int BranchID ) 
+        public IActionResult Details(int BranchID)
         {
             Branch branch = _branchService.GetBranchById(BranchID);
 
@@ -104,9 +99,7 @@ namespace MembershipManagement.Web.Controllers
             {
                 return NotFound();
             }
-            //GetMemberAndBookingLineChartData()
             return View(branch);
-            
         }
 
         public ActionResult AddBranchAdmin(int branchId)
@@ -120,13 +113,12 @@ namespace MembershipManagement.Web.Controllers
 
             var model = new RegisterVM
             {
-                BranchId = branchId,  // Set the BranchId from the parameter
-                BranchList = branchList,  // Populate the BranchList for dropdown
+                BranchId = branchId,
+                BranchList = branchList,
                 Password = "M2nzie@emkay",
                 ConfirmPassword = "M2nzie@emkay",
                 Role = "Branch Manager",
             };
-
 
             return View(model);
         }
@@ -134,11 +126,8 @@ namespace MembershipManagement.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> AddBranchAdmin(RegisterVM registerVM)
         {
-            
-
             ApplicationUser user = new()
             {
-                
                 Name = registerVM.Name,
                 Email = registerVM.Email,
                 PhoneNumber = registerVM.PhoneNumber,
@@ -147,9 +136,8 @@ namespace MembershipManagement.Web.Controllers
                 UserName = registerVM.Email,
                 CreatedAt = DateTime.Now,
                 BranchId = registerVM.BranchId,
-                
-
             };
+
             string defaultPassword = "M2nzie@emkay";
             var result = await _userManager.CreateAsync(user, defaultPassword);
 
@@ -159,7 +147,6 @@ namespace MembershipManagement.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Handle failure case
             ModelState.AddModelError(string.Empty, "Failed to create user.");
             return RedirectToAction("Index");
         }
@@ -175,13 +162,12 @@ namespace MembershipManagement.Web.Controllers
 
             var model = new RegisterVM
             {
-                BranchId = branchId,  // Set the BranchId from the parameter
-                BranchList = branchList,  // Populate the BranchList for dropdown
+                BranchId = branchId,
+                BranchList = branchList,
                 Password = "M2nzie@emkay",
                 ConfirmPassword = "M2nzie@emkay",
                 Role = "Regular User",
             };
-
 
             return View(model);
         }
@@ -189,11 +175,8 @@ namespace MembershipManagement.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> AddRegularUser(RegisterVM registerVM)
         {
-
-
             ApplicationUser user = new()
             {
-
                 Name = registerVM.Name,
                 Email = registerVM.Email,
                 PhoneNumber = registerVM.PhoneNumber,
@@ -202,9 +185,8 @@ namespace MembershipManagement.Web.Controllers
                 UserName = registerVM.Email,
                 CreatedAt = DateTime.Now,
                 BranchId = registerVM.BranchId,
-
-
             };
+
             string defaultPassword = "M2nzie@emkay";
             var result = await _userManager.CreateAsync(user, defaultPassword);
 
@@ -214,24 +196,22 @@ namespace MembershipManagement.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Handle failure case
             ModelState.AddModelError(string.Empty, "Failed to create user.");
             return RedirectToAction("Index");
         }
 
         public ActionResult BranchManagers(int branchId)
         {
-            var usersInRole = _userManager.GetUsersInRoleAsync("Branch Manager").Result; // Retrieve users in "BranchManager" role
-            var branchManager = usersInRole.Where(u => u.BranchId == branchId).ToList(); // Filter users by branchId
-            
+            var usersInRole = _userManager.GetUsersInRoleAsync("Branch Manager").Result;
+            var branchManager = usersInRole.Where(u => u.BranchId == branchId).ToList();
 
             return View(branchManager);
         }
+
         public ActionResult BranchMembers(int branchId)
         {
-            var usersInRole = _userManager.GetUsersInRoleAsync("Regular User").Result; // Retrieve users in "BranchManager" role
-            var branchMembers = usersInRole.Where(u => u.BranchId == branchId).ToList(); // Filter users by branchId
-
+            var usersInRole = _userManager.GetUsersInRoleAsync("Regular User").Result;
+            var branchMembers = usersInRole.Where(u => u.BranchId == branchId).ToList();
 
             return View(branchMembers);
         }
@@ -247,16 +227,38 @@ namespace MembershipManagement.Web.Controllers
         [HttpPost]
         public ActionResult UpdateStatus(Sealing sealing)
         {
-            
             _sealingService.UpdateStatus(sealing.SealingId, SD.StatusApproved);
 
             return RedirectToAction(nameof(BranchSealings), new { branchId = sealing.SealingId });
-
         }
 
         public async Task<IActionResult> GetMemberAndBookingLineChartData()
         {
             return Json(await _dashboardService.GetMemberAndBookingLineChartData());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveBranchManager(string branchManagerId)
+        {
+            var manager = await _userManager.FindByIdAsync(branchManagerId);
+            if (manager != null)
+            {
+                var result = await _userManager.DeleteAsync(manager);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(BranchManagers), new { branchId = manager.BranchId });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Failed to remove branch manager.");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Branch manager not found.");
+            }
+
+            return RedirectToAction(nameof(BranchManagers));
         }
     }
 }

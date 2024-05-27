@@ -2,7 +2,46 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .welcome-container {
+        background: url('/images/depositphotos_449354400-stock-photo-background-card-happy-easter-dark.jpg') no-repeat center center;
+        background-size: cover;
+        color: white;
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .welcome-text {
+        background: rgba(0, 0, 0, 0.5); 
+        padding: 50px;
+        border-radius: 15px;
+        margin-top: 20vh; 
+    }
+
+        .welcome-text h1, .welcome-text p, .welcome-text a {
+            color: white;
+        }
+
+            .welcome-text a.btn {
+                background-color: #0062cc;
+                border-color: #0062cc;
+            }
+
+                .welcome-text a.btn:hover {
+                    background-color: #004085;
+                    border-color: #004085;
+                }
+</style>
+
+<div class="welcome-container">
+    <div class="welcome-text text-center">
+        <h1 class="display-3 font-weight-bold">Welcome to Our Church Community</h1>
+        <p class="lead">Join us in worship, fellowship, and service to our community.</p>
+        <hr class="my-4">
+        <p>Stay connected with our church through our app. Access sermons, event calendars, volunteer opportunities, and more.</p>
+        <a class="btn btn-primary btn-lg mt-3" href="/Account/Login" role="button">Get Started</a>
+    </div>
 </div>

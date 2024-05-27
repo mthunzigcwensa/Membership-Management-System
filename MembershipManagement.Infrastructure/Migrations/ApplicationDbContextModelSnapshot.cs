@@ -188,48 +188,6 @@ namespace MembershipManagement.Infrastructure.Migrations
                     b.HasIndex("BranchId");
 
                     b.ToTable("Sealings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a3d8ae1e-1e15-4ae7-b6cd-cd37cca74269",
-                            AppliedByDate = new DateTime(2024, 4, 29, 1, 54, 44, 537, DateTimeKind.Local).AddTicks(2837),
-                            BranchId = 3,
-                            SealingDate = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SealingId = 1,
-                            SealingType = "Regular",
-                            Status = "Submitted"
-                        },
-                        new
-                        {
-                            Id = "c994283e-7d07-4c8a-a11f-b7c4c616d4f9",
-                            AppliedByDate = new DateTime(2024, 4, 29, 1, 54, 44, 537, DateTimeKind.Local).AddTicks(2854),
-                            BranchId = 3,
-                            SealingDate = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SealingId = 2,
-                            SealingType = "Regular",
-                            Status = "Submitted"
-                        },
-                        new
-                        {
-                            Id = "50eeab50-dc3a-4cdf-89d6-251efcdd50f3",
-                            AppliedByDate = new DateTime(2024, 4, 29, 1, 54, 44, 537, DateTimeKind.Local).AddTicks(2858),
-                            BranchId = 3,
-                            SealingDate = new DateTime(2024, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SealingId = 3,
-                            SealingType = "Regular",
-                            Status = "Submitted"
-                        },
-                        new
-                        {
-                            Id = "07f809e0-322f-4fcc-8570-1fc669f57ee7",
-                            AppliedByDate = new DateTime(2024, 4, 29, 1, 54, 44, 537, DateTimeKind.Local).AddTicks(2862),
-                            BranchId = 3,
-                            SealingDate = new DateTime(2024, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SealingId = 4,
-                            SealingType = "Regular",
-                            Status = "Submitted"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

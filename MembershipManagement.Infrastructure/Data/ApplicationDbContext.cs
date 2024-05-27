@@ -24,7 +24,7 @@ namespace MembershipManagement.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Sealing>().HasData(
+           /* modelBuilder.Entity<Sealing>().HasData(
 
                 new Sealing
                 {
@@ -71,6 +71,7 @@ namespace MembershipManagement.Infrastructure.Data
                 }
 
                 );
+           */
         }
     }
 }

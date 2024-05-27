@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MembershipManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240427194237_dbcon")]
-    partial class dbcon
+    [Migration("20240527133635_Genera")]
+    partial class Genera
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace MembershipManagement.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BranchId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -85,6 +88,8 @@ namespace MembershipManagement.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -149,6 +154,43 @@ namespace MembershipManagement.Infrastructure.Migrations
                     b.HasKey("BranchID");
 
                     b.ToTable("Branches");
+                });
+
+            modelBuilder.Entity("MembershipManagement.Domain.Entities.Sealing", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("AppliedByDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SealingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SealingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SealingType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUser");
+
+                    b.HasIndex("BranchId");
+
+                    b.ToTable("Sealings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -282,6 +324,32 @@ namespace MembershipManagement.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("MembershipManagement.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.HasOne("MembershipManagement.Domain.Entities.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId");
+
+                    b.Navigation("Branch");
+                });
+
+            modelBuilder.Entity("MembershipManagement.Domain.Entities.Sealing", b =>
+                {
+                    b.HasOne("MembershipManagement.Domain.Entities.ApplicationUser", "applicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUser");
+
+                    b.HasOne("MembershipManagement.Domain.Entities.Branch", "branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("applicationUser");
+
+                    b.Navigation("branch");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
