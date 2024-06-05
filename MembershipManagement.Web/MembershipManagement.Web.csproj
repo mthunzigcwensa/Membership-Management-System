@@ -32,8 +32,4 @@
     <ProjectReference Include="..\MembershipManagement.Infrastructure\MembershipManagement.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\BranchImage\" />
-  </ItemGroup>
-
 </Project>
