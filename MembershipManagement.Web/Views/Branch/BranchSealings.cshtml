@@ -8,8 +8,8 @@
         <thead>
             <tr>
                 <th>Sealing Type</th>
-                <th>Sealing Date</th>               
-                <th> User Id</th>
+                <th>Sealing Date</th>
+                <th>User ID</th>
                 <th>Application Date</th>
                 <th>Action</th>
                 <th>Status</th>
@@ -25,10 +25,11 @@
                     <td>@sealing.AppliedByDate</td>
                     <td>@sealing.Status</td>
                     <td>
-                        @if(@sealing.Status == "Submitted"){
+                        @if (sealing.Status == "Submitted")
+                        {
                             <form asp-action="UpdateStatus" asp-route-SealingId="@sealing.SealingId" method="post">
-                            <button type="submit" class="btn btn-danger">Aprove</button>
-                        </form>
+                                <button type="submit" class="btn btn-danger">Approve</button>
+                            </form>
                         }
                     </td>
                 </tr>
