@@ -2,7 +2,7 @@
 
 @{
     // Authorization check: Only Super Admins or Branch Managers can access this page
-    if (!User.IsInRole("SuperAdmin") && !User.IsInRole("BranchManager"))
+    if (!User.IsInRole("Super Admin") && !User.IsInRole("Branch Manager"))
     {
         <p>Access Denied. You do not have permission to view this page.</p>
         return;
