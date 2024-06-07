@@ -1,4 +1,14 @@
 ﻿@model Branch
+
+@{
+    // Authorization check: Only Super Admins or Branch Managers can access this page
+    if (!User.IsInRole("Super Admin") && !User.IsInRole("Branch Manager") && !User.IsInRole("Regular User"))
+    {
+        <p>Access Denied. You do not have permission to view this page.</p>
+        return;
+    }
+}
+
 <div>
     <a asp-action="AddBranchAdmin"
        asp-route-BranchID="@Model.BranchID"
