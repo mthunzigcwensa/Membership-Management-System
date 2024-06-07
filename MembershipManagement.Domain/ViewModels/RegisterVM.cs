@@ -39,5 +39,8 @@ namespace MembershipManagement.Domain.ViewModels
         public string? Role { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem>? RoleList { get; set; }
+        public int Age { get; set; }
+        public int Status { get; set; }
+       
     }
 }

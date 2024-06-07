@@ -6,12 +6,14 @@ using MembershipManagement.Domain.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MembershipManagement.Web.Controllers
 {
     public class AccountController : Controller
     {
-
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -31,14 +33,11 @@ namespace MembershipManagement.Web.Controllers
 
         public IActionResult Login(string returnUrl = null)
         {
-
             returnUrl ??= Url.Content("~/");
-
             LoginVM loginVM = new()
             {
                 RedirectUrl = returnUrl
             };
-
             return View(loginVM);
         }
 
@@ -114,7 +113,6 @@ namespace MembershipManagement.Web.Controllers
                         await _userManager.AddToRoleAsync(user, SD.Role_RegularUser);
                     }
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
                     if (string.IsNullOrEmpty(registerVM.RedirectUrl))
                     {
                         return RedirectToAction("Index", "Home");
@@ -147,24 +145,16 @@ namespace MembershipManagement.Web.Controllers
                 var result = await _signInManager
                     .PasswordSignInAsync(loginVM.Email, loginVM.Password, loginVM.RememberMe, lockoutOnFailure: false);
 
-
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(loginVM.Email);
                     if (await _userManager.IsInRoleAsync(user, SD.Role_SuperAdmin))
                     {
-                        return RedirectToAction("Index", "Dashboard");
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        if (string.IsNullOrEmpty(loginVM.RedirectUrl))
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else
-                        {
-                            return LocalRedirect(loginVM.RedirectUrl);
-                        }
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 else
@@ -173,7 +163,8 @@ namespace MembershipManagement.Web.Controllers
                 }
             }
 
-            return View(loginVM);
+            return View("Login", loginVM);
         }
+
     }
 }

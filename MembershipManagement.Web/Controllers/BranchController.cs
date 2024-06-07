@@ -260,5 +260,9 @@ namespace MembershipManagement.Web.Controllers
 
             return RedirectToAction(nameof(BranchManagers));
         }
+        public IActionResult Report()
+        {
+            return View();
+        }
     }
 }
