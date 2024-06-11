@@ -1,56 +1,85 @@
 ﻿@model Branch
-<div>
-    <a asp-action="AddBranchAdmin"
-       asp-route-BranchID="@Model.BranchID"
-       class="btn btn-success bg-gradient border-0 form-control">
-        Add admin
-    </a>
-</div>
-<div>
-    <a asp-action="AddRegularUser"
-       asp-route-BranchID="@Model.BranchID"
-       class="btn btn-warning bg-gradient border-0 form-control">
-        Add member
-    </a>
-</div>
-<div>
-    <a asp-action="UpdateBranch"
-       asp-route-BranchID="@Model.BranchID"
-       class="btn btn-info bg-gradient border-0 form-control">
-        Update Branch
-    </a>
-</div>
-<div>
-    <a asp-action="DeleteBranch"
-       asp-route-BranchID="@Model.BranchID"
-       class="btn btn-danger bg-gradient border-0 form-control">
-        Remove Branch
-    </a>
-</div>
-<div>
-    <a asp-action="BranchMembers"
-       asp-route-BranchID="@Model.BranchID"
-       class="btn btn-primary bg-gradient border-0 form-control">
-        branch all users
-    </a>
-</div>
-<div>
-    <a asp-action="BranchManagers"
-       asp-route-BranchID="@Model.BranchID"
-       class="btn btn-primary bg-gradient border-0 form-control">
-        see all branch admins
-    </a>
-</div>
-<div>
-    <a asp-action="BranchSealings"
-       asp-route-BranchID="@Model.BranchID"
-       class="btn btn-primary bg-gradient border-0 form-control">
-        see all branch Sealing
-    </a>
+
+@{
+    // Authorization check: Only Super Admins or Branch Managers can access this page
+    if (!User.IsInRole("Super Admin") && !User.IsInRole("Branch Manager") && !User.IsInRole("Regular User"))
+    {
+        <p>Access Denied. You do not have permission to view this page.</p>
+        return;
+    }
+}
+
+<div class="container py-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+            <div class="card bg-light border-0 rounded-5 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary text-center mb-4">Add Admin</h5>
+                    <a asp-action="AddBranchAdmin" asp-route-BranchID="@Model.BranchID" class="btn btn-primary w-100">Add Admin</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light border-0 rounded-5 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-warning text-center mb-4">Add Member</h5>
+                    <a asp-action="AddRegularUser" asp-route-BranchID="@Model.BranchID" class="btn btn-warning w-100">Add Member</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light border-0 rounded-5 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-info text-center mb-4">Update Branch</h5>
+                    <a asp-action="UpdateBranch" asp-route-BranchID="@Model.BranchID" class="btn btn-info w-100">Update Branch</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light border-0 rounded-5 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-danger text-center mb-4">Remove Branch</h5>
+                    <a asp-action="DeleteBranch" asp-route-BranchID="@Model.BranchID" class="btn btn-danger w-100">Remove Branch</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light border-0 rounded-5 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary text-center mb-4">Branch All Users</h5>
+                    <a asp-action="BranchMembers" asp-route-BranchID="@Model.BranchID" class="btn btn-primary w-100">Branch All Users</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light border-0 rounded-5 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary text-center mb-4">See All Branch Admins</h5>
+                    <a asp-action="BranchManagers" asp-route-BranchID="@Model.BranchID" class="btn btn-primary w-100">See All Branch Admins</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light border-0 rounded-5 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary text-center mb-4">Generate Report</h5>
+                    <a asp-action="Report" asp-route-BranchID="@Model.BranchID" class="btn btn-primary w-100">Generate Report</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light border-0 rounded-5 shadow-lg">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-primary text-center mb-4">See All Branch Sealings</h5>
+                    <a asp-action="BranchSealings" asp-route-BranchID="@Model.BranchID" class="btn btn-primary w-100">See All Branch Sealings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="col-md-12 col-xl-8 mt-2">
-    <div class="card" style="background-color: #1a222b;">
+    <div class="card border-0 rounded-3 shadow-lg" style="background-color: #1a222b;">
         <div class="card-body">
             <div>
                 <p class="text-muted mb-0">New Members And Bookings In Past 30 Days</p>
@@ -62,10 +91,10 @@
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+
 @section scripts {
     <script src="~/js/dashboard/radailChart.js"></script>
     <script src="~/js/dashboard/getTotalBookingsRadial.js"></script>

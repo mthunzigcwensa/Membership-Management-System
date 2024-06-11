@@ -1,5 +1,13 @@
 ﻿@using MembershipManagement.Application.Common.Utility
 @model RegisterVM
+@{
+    // Authorization check: Only Super Admins or Branch Managers can access this page
+    if (!User.IsInRole("Super Admin") && !User.IsInRole("Branch Manager"))
+    {
+        <p>Access Denied. You do not have permission to view this page.<br />Only Admin have an access</p>
+        return;
+    }
+}
 
 <section class="vh-100" style="background-color: #12161d;">
     <div class="container py-5 h-100">
@@ -35,7 +43,7 @@
                                             <input asp-for="PhoneNumber" type="number" class="form-control form-control-lg" />
                                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                         </div>
-                                    </div>
+                                    </div> 
 
                                     <div class="mb-4">
                                         <label class="form-label text-light" for="Password">Password</label>

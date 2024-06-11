@@ -1,4 +1,12 @@
 ﻿@model MembershipManagement.Domain.ViewModels.RegisterVM
+@{
+    // Authorization check: Only Super Admins or Branch Managers can access this page
+    if (!User.IsInRole("Super Admin") && !User.IsInRole("Branch Manager"))
+    {
+        <p>Access Denied. You do not have permission to view this page.</p>
+        return;
+    }
+}
 
 <div class="container py-4">
     <div class="card border-0 shadow-lg">
@@ -14,11 +22,7 @@
                     </select>
                     <input type="hidden" asp-for="BranchId" />
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter email">
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
+                
                 <div class="mb-3">
                     <label class="form-label">Admin Role</label>
                     <input asp-for="Role" disabled class="form-control">
@@ -26,13 +30,38 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Name</label>
-                    <input asp-for="Name" type="text" class="form-control" placeholder="Full name">
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Full name" required>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" required>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Phone Number</label>
-                    <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Enter phone number">
+                    <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Enter phone number" required>
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select asp-for="Status" class="form-select" required>
+                        <option value="">Select Status</option>
+                        <option value="sealed">Sealed</option>
+                        <option value="welcomed">Welcomed</option>
+                        <option value="testifiers">Testifiers</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Age</label>
+                    <input asp-for="Age" type="number" class="form-control" placeholder="Enter age" required>
+                    <span asp-validation-for="Age" class="text-danger"></span>
                 </div>
                 <div class="row">
                     <div class="col-6">
