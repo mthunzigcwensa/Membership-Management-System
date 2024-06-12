@@ -11,13 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MembershipManagement.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MembershipManagement.Infrastructure", "MembershipManagement.Infrastructure\MembershipManagement.Infrastructure.csproj", "{213E503E-B404-48C5-A96B-D785A58FD4D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{1FCAD127-35A9-44FD-AB86-FBC54D648271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{1FCAD127-35A9-44FD-AB86-FBC54D648271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{94314EA7-F9CE-42B0-A2ED-6C3E7B024BFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{94314EA7-F9CE-42B0-A2ED-6C3E7B024BFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3", "WebApplication3\WebApplication3.csproj", "{35F16498-59D5-40F8-9B3C-00D2897C2B54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication3", "WebApplication3\WebApplication3.csproj", "{35F16498-59D5-40F8-9B3C-00D2897C2B54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication4", "WebApplication4\WebApplication4.csproj", "{7F714388-B4B6-418A-B29E-E186B61437A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication4", "WebApplication4\WebApplication4.csproj", "{7F714388-B4B6-418A-B29E-E186B61437A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication5", "WebApplication5\WebApplication5.csproj", "{A9ED9246-3CE1-4985-8556-350D0B805274}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{7F714388-B4B6-418A-B29E-E186B61437A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F714388-B4B6-418A-B29E-E186B61437A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F714388-B4B6-418A-B29E-E186B61437A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9ED9246-3CE1-4985-8556-350D0B805274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9ED9246-3CE1-4985-8556-350D0B805274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9ED9246-3CE1-4985-8556-350D0B805274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9ED9246-3CE1-4985-8556-350D0B805274}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
